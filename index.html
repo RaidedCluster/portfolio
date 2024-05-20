@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Fira Code', monospace; margin: 0; padding: 0; background-color: #f5f5f5; }
+        .container { max-width: 800px; margin: auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        header { text-align: center; margin-bottom: 20px; }
+        nav ul { padding: 0; list-style: none; }
+        nav ul li { display: inline; margin-right: 10px; }
+        a { text-decoration: none; color: #007bff; font-weight: bold; }
+        footer { text-align: center; margin-top: 20px; font-size: 0.8em; color: #666; }
+        .folder-icon { cursor: pointer; user-select: none; }
+
+        /* New styles for animation */
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            75% { transform: translateY(200px); opacity: 1; } /* Adjust translateY value based on your layout */
+            100% { transform: translateY(200px); opacity: 0; }
+        }
+
+        .falling-document {
+            position: absolute;
+            animation: fall 2s forwards; /* Animation for falling */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Johan S Daniel</h1>
+            <p>Welcome to my portfolio! <span id="folderIcon" class="folder-icon" onclick="toggleFolder()">📁</span></p>
+            <span id="fallingDocument" style="display: none;">📄</span> <!-- Placeholder for falling document -->
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="angry-resume.html">Angry Resumes</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section>
+                <h2>About Me</h2>
+                <p>I love AI! (<strong>Fun fact:</strong> Ai means love in Japanese! So I really Ai AI!)</p>
+                <p>I'm a freshman studying CS at MIT.</p>
+                <p>In Massachusetts 🇺🇸? I wish.</p>
+                <p>Manipal Institute of Technology 🇮🇳.</p>
+                <p>I work part-time as a Junior ML Developer at 合同会社 107 (<a href="https://www.107.jp" target="_blank">107.jp</a>)</p>
+                <p>Sorry no awesome origin story here but if I am flaunting this website unnecessarily on any social platform that probably means I'm unemployed.</p>
+            </section>
+        </main>
+    </div>
+    <script>
+        var animationPlayed = false; // Flag to track if the animation has been played
+    
+        function toggleFolder() {
+            var folderIcon = document.getElementById('folderIcon');
+            var fallingDocument = document.getElementById('fallingDocument');
+    
+            // Only play the animation if it hasn't been played before
+            if (!animationPlayed) {
+                if (folderIcon.textContent === "📁") {
+                    folderIcon.textContent = "📂"; // Change to open folder icon
+    
+                    // Position the fallingDocument near the folder icon and show it
+                    fallingDocument.style.display = "inline";
+                    fallingDocument.style.position = "absolute";
+                    fallingDocument.style.left = folderIcon.offsetLeft + "px"; // Adjust as needed
+                    fallingDocument.style.top = (folderIcon.offsetTop + 20) + "px"; // Adjust as needed
+    
+                    // Apply falling animation
+                    fallingDocument.className = "falling-document";
+                    
+                    // After a delay, change the emoji to fire and fade out
+                    setTimeout(function() {
+                        fallingDocument.textContent = "🔥";
+                        // Reset to initial state after animation
+                        setTimeout(function() {
+                            fallingDocument.style.display = "none";
+                            fallingDocument.textContent = "📄"; // Reset the icon for next time
+                            fallingDocument.className = ""; // Remove animation class
+                            animationPlayed = true; // Set the flag to prevent animation replay
+                        }, 2000); // Match this timeout with the animation duration
+                    }, 500); // Time before changing to the fire emoji
+    
+                } else {
+                    folderIcon.textContent = "📁"; // Change to closed folder icon
+                }
+            }
+        }
+    </script>
+</body>
+</html>
